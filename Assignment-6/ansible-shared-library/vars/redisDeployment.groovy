@@ -67,11 +67,20 @@ def call() {
                         )
                     ]) {
                         sh """
+                            echo "=== Jenkins Locale ==="
+                            locale
+
+                            echo "=== Python Locale ==="
+                            python3 -c "import locale; print(locale.getpreferredencoding(False))"
+
+                            echo "=== Ansible Version ==="
+                            ansible --version
+
                             cd ${env.CODE_BASE_PATH}
 
                             ansible-playbook playbook.yml \
-                              --private-key \$SSH_KEY \
-                              -u \$SSH_USER
+                            --private-key \$SSH_KEY \
+                            -u \$SSH_USER
                         """
                     }
                 }
