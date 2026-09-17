@@ -4,6 +4,10 @@ def call() {
 
         agent any
 
+        options {
+            skipDefaultCheckout(true)
+        }
+
         stages {
 
             stage('Clone') {
@@ -18,7 +22,7 @@ def call() {
                     script {
                         echo "Loading configuration..."
 
-                        def config = readProperties file: 'config/prod.conf'
+                        def config = readProperties file: 'Assignment-6/ansible-demo-project/config/prod.conf'
 
                         env.SLACK_CHANNEL_NAME = config.SLACK_CHANNEL_NAME
                         env.ENVIRONMENT = config.ENVIRONMENT
