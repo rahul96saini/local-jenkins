@@ -55,10 +55,21 @@ def call() {
                 steps {
                     echo "Executing Redis Ansible playbook..."
 
-                    sh """
-                        cd ${env.CODE_BASE_PATH}
-                        ansible-playbook playbook.yml
-                    """
+                    withCredentials([
+                        sshUserPrivateKey(
+                            credentialsId: 'redis-ec2-ssh',
+                            keyFileVariable: 'SSH_KEY',
+                            usernameVariable: 'SSH_USER'
+                        )
+                    ]) {
+                        sh """
+                            cd ${env.CODE_BASE_PATH}
+
+                            ansible-playbook playbook.yml \
+                              --private-key \$SSH_KEY \
+                              -u \$SSH_USER
+                        """
+                    }
                 }
             }
         }
