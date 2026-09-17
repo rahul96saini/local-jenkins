@@ -1,0 +1,2 @@
+[redis]
+redis-server ansible_host=3.110.189.225 ansible_user=ubuntu

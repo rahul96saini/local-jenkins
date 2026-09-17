@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  author: Rahul Saini
+  description: Ansible role to install and configure Redis on Ubuntu
+  min_ansible_version: "2.15"
+
+dependencies: []

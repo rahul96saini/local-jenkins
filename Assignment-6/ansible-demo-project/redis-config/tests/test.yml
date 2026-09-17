@@ -1,0 +1,7 @@
+---
+- name: Test Redis role
+  hosts: redis
+  become: true
+
+  roles:
+    - redis-config

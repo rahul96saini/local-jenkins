@@ -1,0 +1,2 @@
+[redis]
+redis-server ansible_host=3.110.189.225 ansible_user=ubuntu ansible_ssh_private_key_file=/home/rahul/.ssh/my_guru.pem
