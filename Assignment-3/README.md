@@ -517,6 +517,8 @@ Failure - Any
 
 This provides immediate visibility when a CI check fails.
 
+![Assignment Screenshot](images/j3.4.png)
+![Assignment Screenshot](images/j3.5.png)
 ---
 
 # 8. Tools Used
