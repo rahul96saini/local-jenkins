@@ -6,6 +6,13 @@ def call() {
 
         stages {
 
+            stage('Clone') {
+                steps {
+                    echo "Cloning Redis Ansible project..."
+                    checkout scm
+                }
+            }
+
             stage('Load Configuration') {
                 steps {
                     script {
@@ -24,13 +31,6 @@ def call() {
                         echo "Approval Stage: ${env.KEEP_APPROVAL_STAGE}"
                         echo "Slack Channel: ${env.SLACK_CHANNEL_NAME}"
                     }
-                }
-            }
-
-            stage('Clone') {
-                steps {
-                    echo "Cloning Redis Ansible project..."
-                    checkout scm
                 }
             }
 
