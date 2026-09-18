@@ -2,3 +2,6 @@ bind {{ redis_bind }}
 port {{ redis_port }}
 protected-mode {{ redis_protected_mode }}
 supervised {{ redis_supervised }}
+
+dir /var/lib/redis
+dbfilename dump.rdb

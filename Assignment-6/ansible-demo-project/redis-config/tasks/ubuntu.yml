@@ -9,6 +9,14 @@
     name: "{{ redis_package }}"
     state: present
 
+- name: Ensure Redis data directory exists
+  ansible.builtin.file:
+    path: /var/lib/redis
+    state: directory
+    owner: redis
+    group: redis
+    mode: "0750"
+
 - name: Configure Redis
   ansible.builtin.template:
     src: redis.conf.j2
