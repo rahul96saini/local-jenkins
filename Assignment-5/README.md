@@ -62,6 +62,7 @@ Deny     Approve
            v
      Slack + Email
 ```
+![Assignment Screenshot](images/j5.8.png)
 
 ## Pipeline Stages
 
@@ -143,6 +144,8 @@ archiveArtifacts(
     fingerprint: true
 )
 ```
+![Assignment Screenshot](images/j5.5.png)
+
 
 ### 6. Notifications
 
@@ -180,6 +183,9 @@ params.RUN_CODE_COVERAGE
 
 This allows the user to skip individual scans during a build.
 
+![Assignment Screenshot](images/j5.1.png)
+![Assignment Screenshot](images/j5.2.png)
+
 ## Approval and Artifact Publication
 
 The publication state is stored in:
@@ -213,6 +219,9 @@ The WAR is published only when `publicationApproved` is true.
 | Code Coverage Report | JaCoCo | Coverage report |
 | Build Artifact | Maven WAR | Archived WAR |
 
+![Assignment Screenshot](images/j5.6.png)
+![Assignment Screenshot](images/j5.7.png)
+
 ## Notifications
 
 ### Successful Publication
@@ -223,6 +232,9 @@ Slack and Email notifications are sent after successful artifact publication.
 
 If artifact publication fails, Slack and Email failure notifications are sent and the original error is rethrown so Jenkins marks the build as failed.
 
+![Assignment Screenshot](images/j5.9.png)
+![Assignment Screenshot](images/j5.10.png)
+![Assignment Screenshot](images/j5.11.png)
 
 ## Expected Result
 
@@ -241,6 +253,9 @@ Slack + Email          SENT
 ```
 
 The build should contain the JUnit results, JaCoCo coverage report, Checkstyle XML report, and WAR artifact.
+
+![Assignment Screenshot](images/j5.3.png)
+![Assignment Screenshot](images/j5.4.png)
 
 ### Denied Build
 

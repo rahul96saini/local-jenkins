@@ -45,6 +45,7 @@ Notification
 
 The required inputs for the shared library are provided through a configuration file.
 
+![Assignment Screenshot](images/j6.4.png)
 ---
 
 # 2. Objective
@@ -533,6 +534,7 @@ Assignment-6/ansible-demo-project
 
 The SSH private key is supplied securely using the Jenkins credential.
 
+![Assignment Screenshot](images/j6.3.png)
 ---
 
 # 13. SSH Credential Configuration
@@ -675,6 +677,7 @@ The configured Redis process listens on:
 
 Redis port `6379` is therefore not exposed through the EC2 Security Group.
 
+![Assignment Screenshot](images/j6.6.png)
 ---
 
 # 16. Slack Notification
@@ -712,6 +715,8 @@ slack-token
 ```
 
 The Slack bot/app must have permission to post to the selected Slack channel.
+
+![Assignment Screenshot](images/j6.5.png)
 
 ---
 

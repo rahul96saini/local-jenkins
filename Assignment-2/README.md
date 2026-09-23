@@ -134,6 +134,7 @@ Create the following users:
 
 Give each user a password and keep a record of the credentials.
 
+![Assignment Screenshot](images/j2.6.png)
 ------------------------------------------------------------------------
 
 # Step 4: Set Authorization Strategy to Role-Based
@@ -212,6 +213,7 @@ Job Name: dev-1
 Build Number: 1
 ```
 
+![Assignment Screenshot](images/j2.7.png)
 ------------------------------------------------------------------------
 
 # Step 6: Create the 3 Views
@@ -234,6 +236,7 @@ Configure the views as follows:
 
 This organizes the jobs into separate team-specific views.
 
+![Assignment Screenshot](images/j2.11.png)
 ------------------------------------------------------------------------
 
 # Step 7: Configure Roles --- The Core of the Assignment
@@ -366,6 +369,11 @@ Add each user and assign the corresponding role:
 
 Click **Save**.
 
+![Assignment Screenshot](images/j2.1.png)
+![Assignment Screenshot](images/j2.2.png)
+![Assignment Screenshot](images/j2.3.png)
+![Assignment Screenshot](images/j2.4.png)
+![Assignment Screenshot](images/j2.5.png)
 ------------------------------------------------------------------------
 
 # Step 8: Verify
@@ -390,6 +398,7 @@ Expected access:
 -   Can access the workspace of `dev-*` jobs.
 -   Cannot access the Testing and DevOps jobs.
 
+![Assignment Screenshot](images/j2.8.png)
 ------------------------------------------------------------------------
 
 ## Testing
@@ -407,6 +416,7 @@ Expected access:
 -   Developer jobs are visible according to the assignment's requirement
     that Testing can view Developer jobs.
 
+![Assignment Screenshot](images/j2.9.png)
 ------------------------------------------------------------------------
 
 ## DevOps
@@ -424,6 +434,7 @@ Expected access:
     jobs.
 -   Can view Developer and Testing jobs.
 
+![Assignment Screenshot](images/j2.10.png)
 ------------------------------------------------------------------------
 
 ## Administrator

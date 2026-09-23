@@ -104,6 +104,7 @@ This demonstrates important Jenkins CI concepts such as:
           Slack           Email
 ```
 
+![Assignment Screenshot](images/j4.8.png)
 ---
 
 # 4. Pipeline Stages
@@ -224,6 +225,7 @@ target/checkstyle-result.xml
 
 The report is archived by Jenkins as a build artifact.
 
+![Assignment Screenshot](images/j4.1.png)
 ---
 
 ## 4.5 Code Coverage Analysis
@@ -256,6 +258,11 @@ JaCoCo measures how much of the source code is executed by the tests.
 
 Jenkins publishes the JaCoCo results so that the coverage information can be viewed from the build page under **Coverage Report**.
 
+
+![Assignment Screenshot](images/j4.2.png)
+![Assignment Screenshot](images/j4.3.png)
+![Assignment Screenshot](images/j4.4.png)
+![Assignment Screenshot](images/j4.5.png)
 ---
 
 # 4.6 Approval Stage
@@ -321,6 +328,8 @@ The publishing stage is skipped.
 
 This ensures that artifacts cannot be published without manual approval.
 
+![Assignment Screenshot](images/j4.6.png)
+![Assignment Screenshot](images/j4.7.png)
 ---
 
 # 4.7 Publish Artifacts
@@ -360,6 +369,8 @@ target/*.war
 
 to select the generated WAR file.
 
+![Assignment Screenshot](images/j4.9.png)
+![Assignment Screenshot](images/j4.10.png)
 ---
 
 # 4.8 Notifications
@@ -397,6 +408,8 @@ and:
 emailext(...)
 ```
 
+![Assignment Screenshot](images/j4.11.png)
+![Assignment Screenshot](images/j4.12.png)
 ---
 
 # 5. Build Parameters
@@ -437,6 +450,7 @@ the Code Quality Analysis stage is skipped while the other enabled scans continu
 
 This provides flexibility during build execution.
 
+![Assignment Screenshot](images/j4.0.png)
 ---
 
 # 6. Reports Generated
