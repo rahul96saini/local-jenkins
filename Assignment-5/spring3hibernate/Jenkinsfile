@@ -1,0 +1,232 @@
+def publicationApproved = false
+
+properties([
+    parameters([
+        booleanParam(
+            name: 'RUN_CODE_STABILITY',
+            defaultValue: true,
+            description: 'Run Code Stability tests'
+        ),
+
+        booleanParam(
+            name: 'RUN_CODE_QUALITY',
+            defaultValue: true,
+            description: 'Run Code Quality analysis'
+        ),
+
+        booleanParam(
+            name: 'RUN_CODE_COVERAGE',
+            defaultValue: true,
+            description: 'Run Code Coverage analysis'
+        )
+    ])
+])
+
+node {
+
+    stage('Code Checkout') {
+
+        git branch: 'master',
+            url: 'https://github.com/rahul96saini/spring3hibernate.git'
+    }
+
+
+    stage('Parallel Scans') {
+
+        def scanStages = [:]
+
+
+        // -----------------------------
+        // Code Stability
+        // -----------------------------
+
+        if (params.RUN_CODE_STABILITY) {
+
+            scanStages['Code Stability'] = {
+
+                stage('Code Stability') {
+
+                    try {
+
+                        sh 'mvn test'
+
+                    } finally {
+
+                        junit 'target/surefire-reports/*.xml'
+                    }
+                }
+            }
+        }
+
+
+        // -----------------------------
+        // Code Quality
+        // -----------------------------
+
+        if (params.RUN_CODE_QUALITY) {
+
+            scanStages['Code Quality Analysis'] = {
+
+                stage('Code Quality Analysis') {
+
+                    try {
+
+                        sh 'mvn checkstyle:checkstyle'
+
+                    } finally {
+
+                        archiveArtifacts(
+                            artifacts: 'target/checkstyle-result.xml',
+                            fingerprint: true
+                        )
+                    }
+                }
+            }
+        }
+
+
+        // -----------------------------
+        // Code Coverage
+        // -----------------------------
+
+        if (params.RUN_CODE_COVERAGE) {
+
+            scanStages['Code Coverage Analysis'] = {
+
+                stage('Code Coverage Analysis') {
+
+                    try {
+
+                        sh 'mvn jacoco:report'
+
+                    } finally {
+
+                        jacoco(
+                            execPattern: 'target/jacoco.exec'
+                        )
+                    }
+                }
+            }
+        }
+
+
+        parallel scanStages
+    }
+
+
+    // -----------------------------
+    // Package WAR
+    // -----------------------------
+
+    stage('Package') {
+
+        sh 'mvn package -DskipTests'
+    }
+
+
+    // -----------------------------
+    // Approval
+    // -----------------------------
+
+    stage('Approval') {
+
+        def decision = input(
+            message: 'Approve artifact publication?',
+            ok: 'Submit',
+            parameters: [
+                choice(
+                    name: 'APPROVAL',
+                    choices: ['Approve', 'Deny'],
+                    description: 'Choose whether to publish the artifact'
+                )
+            ]
+        )
+
+        echo "Publication decision: ${decision}"
+
+
+        if (decision == 'Approve') {
+
+            publicationApproved = true
+
+        } else {
+
+            publicationApproved = false
+        }
+    }
+
+
+    // -----------------------------
+    // Publish Artifacts
+    // -----------------------------
+
+    stage('Publish Artifacts') {
+
+        if (publicationApproved) {
+
+            try {
+
+                archiveArtifacts(
+                    artifacts: 'target/*.war',
+                    fingerprint: true
+                )
+
+
+                // Slack notification
+
+                slackSend(
+                    message: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} - Artifact published successfully."
+                )
+
+
+                // Email notification
+
+                emailext(
+                    subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """Build completed successfully.
+
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+Status: SUCCESS
+
+The WAR artifact was successfully published.""",
+                    to: 'rahul96saini@gmail.com'
+                )
+
+            }
+
+
+            catch (Exception e) {
+
+                // Slack failure notification
+
+                slackSend(
+                    message: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER} - Artifact publication failed."
+                )
+
+
+                // Email failure notification
+
+                emailext(
+                    subject: "FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                    body: """Build failed.
+
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+Status: FAILED
+
+Artifact publication failed.
+Please check the Jenkins console output.""",
+                    to: 'rahul96saini@gmail.com'
+                )
+
+
+                throw e
+            }
+
+        } else {
+
+            echo 'Artifact publication denied. Skipping artifact publishing.'
+        }
+    }
+}
